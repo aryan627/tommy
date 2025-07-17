@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SF 60: Your Epic Weekend Itinerary</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #005ce6;
+            --secondary-color: #ff6b6b;
+            --dark-color: #2c3e50;
+            --light-color: #ecf0f1;
+            --white-color: #ffffff;
+            --gray-color: #95a5a6;
+            --border-radius: 8px;
+            --shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.7;
+            margin: 0;
+            background-color: var(--light-color);
+            color: var(--dark-color);
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        header {
+            background: url('https://images.unsplash.com/photo-1541462625373-354a93433e31?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80') no-repeat center center/cover;
+            color: var(--white-color);
+            padding: 5rem 1rem;
+            text-align: center;
+            position: relative;
+        }
+        header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+        }
+        header .content {
+            position: relative;
+            z-index: 1;
+        }
+        header h1 {
+            font-size: 3.5rem;
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        header p {
+            font-size: 1.2rem;
+            font-weight: 300;
+        }
+        .budget-note {
+            text-align: center;
+            padding: 1.5rem;
+            margin: 2rem auto;
+            background: var(--white-color);
+            border-radius: var(--border-radius);
+            max-width: 800px;
+            box-shadow: var(--shadow);
+            border-left: 5px solid var(--secondary-color);
+        }
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin-top: 2rem;
+        }
+        .day-column {
+            background-color: var(--white-color);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+        .day-header {
+            background-color: var(--primary-color);
+            color: var(--white-color);
+            padding: 1rem 1.5rem;
+            text-align: center;
+        }
+        .day-header h2 {
+            margin: 0;
+            font-size: 1.8rem;
+        }
+        .day-header p {
+            margin: 0;
+            opacity: 0.8;
+            font-weight: 300;
+        }
+        .timeline {
+            padding: 1.5rem;
+        }
+        .timeslot {
+            margin-bottom: 2.5rem;
+            position: relative;
+            border-left: 3px solid var(--light-color);
+            padding-left: 1.5rem;
+        }
+        .timeslot-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .timeslot-header .icon {
+            font-size: 1.5rem;
+            margin-right: 10px;
+            color: var(--primary-color);
+        }
+        .timeslot-header h3 {
+            margin: 0;
+            font-size: 1.3rem;
+        }
+        .option-card {
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: var(--border-radius);
+            padding: 1rem;
+            margin-bottom: 1rem;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .option-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+        }
+        .option-card h4 {
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+            color: var(--dark-color);
+            font-size: 1rem;
+        }
+        .option-card p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+        .option-card a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+        .option-card a:hover {
+            text-decoration: underline;
+        }
+        .label {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: var(--white-color);
+            padding: 0.2em 0.6em;
+            border-radius: 10px;
+            font-size: 0.75em;
+            font-weight: bold;
+            margin-left: 8px;
+        }
+        footer {
+            text-align: center;
+            padding: 3rem 1rem;
+            margin-top: 2rem;
+            background: var(--dark-color);
+            color: var(--light-color);
+        }
+        footer h3 {
+            color: var(--white-color);
+        }
+        footer a {
+             color: var(--secondary-color);
+             font-weight: 600;
+             text-decoration: none;
+             margin: 0 10px;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 1200px) {
+            .calendar-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.5rem;
+            }
+            .calendar-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="content">
+            <h1>SF 60: Your Epic Weekend</h1>
+            <p>An action-packed, multi-neighborhood itinerary to experience the best of San Francisco.</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="budget-note">
+            <strong>The $500 Challenge:</strong> This itinerary is packed with options to fit your budget. We can do this! Mix free activities like hikes with smart food choices to save money for one or two big ticket items.
+        </div>
+
+        <div class="calendar-grid">
+            <!-- FRIDAY -->
+            <div class="day-column">
+                <div class="day-header">
+                    <h2>Friday</h2>
+                    <p>Arrival & Neighborhood Vibes</p>
+                </div>
+                <div class="timeline">
+                    <div class="timeslot">
+                        <div class="timeslot-header"><span class="icon">🚲</span><h3>Afternoon (2PM - 6PM)</h3></div>
+                        <div class="option-card">
+                            <h4>Bike the Golden Gate</h4>
+                            <p>The quintessential SF activity. Ride across the bridge to Sausalito and take a scenic ferry back.</p>
+                            <a href="https://www.blazingsaddles.com/" target="_blank">Blazing Saddles Rentals</a>
+                        </div>
+                        <div class="option-card">
+                            <h4>Hike Baker Beach</h4>
+                            <p>For a stunning, different view of the bridge and the ocean, hike the trails around this beautiful beach.</p>
+                            <p>Cost: Free</p>
+                        </div>
+                    </div>
+                    <div class="timeslot">
+                        <div class="timeslot-header"><span class="icon">🌮</span><h3>Evening (7PM - 9PM)</h3></div>
+                        <div class="option-card">
+                            <h4>Dinner in The Mission</h4>
+                            <p>Dive into the city's best burrito scene. It's vibrant, authentic, and delicious.</p>
+                            <a href="https://www.latisfood.com/" target="_blank">La Tostada</a> | <a href="https://www.yelp.com/biz/la-taqueria-san-francisco-2" target="_blank">La Taqueria</a>
+                        </div>
+                         <div class="option-card">
+                            <h4>Dinner in Hayes Valley</h4>
+                            <p>A trendy, bustling neighborhood with tons of amazing restaurants and a great atmosphere.</p>
+                            <a href="https://www.arizmendi.com/" target="_blank">A Mano (Italian)</a> | <a href="https://souvlasf.com/" target="_blank">Souvla (Greek)</a>
+                        </div>
+                    </div>
+                    <div class="timeslot">
+                        <div class="timeslot-header"><span class="icon">🍻</span><h3>Night (9PM Onwards)</h3></div>
+                        <div class="option-card">
+                            <h4>Mission Bar Hop</h4>
+                            <p>Experience the eclectic and energetic nightlife of the Mission. So many choices!</p>
+                            <a href="https://zeitgeistsf.com/" target="_blank">Zeitgeist (Beer Garden)</a> | <a href="https://www.goodgoodculture.com/good-mission" target="_blank">Good Mission (Cocktails)</a>
+                        </div>
+                        <div class="option-card">
+                            <h4>Haight-Ashbury Throwback</h4>
+                            <p>Explore the historic heart of hippie culture. Check out Amoeba Music, then grab a drink.</p>
+                            <a href="https://magnoliabrewing.com/" target="_blank">Magnolia Brewing</a>
+                        </div>
+                         <div class="option-card">
+                            <h4>Castro Nightlife</h4>
+                            <p>Experience the energy of one of the world's most famous LGBTQ+ neighborhoods.</p>
+                            <a href="https://www_lookout-sf_com/" target="_blank">Lookout (Balcony Bar)</a> | <a href="https://twinpeakstavern.com/" target="_blank">Twin Peaks Tavern</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SATURDAY -->
+            <div class="day-column">
+                <div class="day-header">
+                    <h2>Saturday</h2>
+                    <p>The Main Adventure</p>
+                </div>
+                <div class="timeline">
+                    <div class="timeslot">
+                        <div class="timeslot-header"><span class="icon">🚀</span><h3>All Day Adventure</h3></div>
+                         <div class="option-card">
+                            <h4>Skydiving!<span class="label">SPLURGE</span></h4>
+                            <p>The ultimate thrill. A tandem jump with coastal views. This is a full-day commitment and a big budget item.</p>
+                            <a href="https://skydivecalifornia.com/" target="_blank">Skydive California</a>
+                        </div>
+                        <div class="option-card">
+                            <h4>"Insane" Hike: Lands End</h4>
+                            <p>Hike the rugged coast, see the Sutro Bath ruins, and get epic bridge views. A true SF gem.</p>
+                             <p>Cost: Free</p>
+                        </div>
+                        <div class="option-card">
+                            <h4>Explore Golden Gate Park</h4>
+                            <p>Rent a paddleboat on Stow Lake, visit the Japanese Tea Garden, or check out the blooms at the Conservatory of Flowers.</p>
+                            <a href="https://www.goldengatepark.com/" target="_blank">Park Info & Attractions</a>
+                        </div>
+                        <div class="option-card">
+                            <h4>Alcatraz & Bay Cruise</h4>
+                            <p>Book WELL in advance. Tour the infamous prison, then relax on a bay cruise around the island.</p>
+                            <a href="https://www.cityexperiences.com/san-francisco/city-cruises/alcatraz/" target="_blank">Book Alcatraz Tickets</a>
+                        </div>
+                    </div>
+                    <div class="timeslot">
+                        <div class="timeslot-header"><span class="icon">🍝</span><h3>Evening (7PM - 9PM)</h3></div>
+                        <div class="option-card">
+                            <h4>Dinner in North Beach</h4>
+                            <p>San Francisco's Little Italy. Classic checkered tablecloths, amazing pasta, and old-school charm.</p>
+                            <a href="https://www.tonyspizzanapoletana.com/" target="_blank">Tony's Pizza</a> | <a href="https://www.idealerestaurant.com/" target="_blank">Ideale</a>
+                        </div>
+                        <div class="option-card">
+                            <h4>Dinner in Japantown</h4>
+                            <p>Explore the oldest Japantown in the US. Get world-class ramen and explore the shops.</p>
+                            <a href="https://www.yelp.com/biz/marufuku-ramen-san-francisco" target="_blank">Marufuku Ramen</a>
+                        </div>
+                    </div>
+                     <div class="timeslot">
+                        <div class="timeslot-header"><span class="icon">🎷</span><h3>Night (9PM Onwards)</h3></div>
+                        <div class="option-card">
+                            <h4>North Beach Bars</h4>
+                            <p>Historic Beat Generation hangouts, live blues, and classic cocktail saloons.</p>
+                            <a href="https://www.vesuvio.com/" target="_blank">Vesuvio Cafe</a> | <a href="http://www.comstocksaloon.com/" target="_blank">Comstock Saloon</a>
+                        </div>
+                         <div class="option-card">
+                            <h4>Polk Street Dive</h4>
+                            <p>A long street full of every kind of bar imaginable, from classic dives to modern lounges.</p>
+                             <a href="https://www.yelp.com/biz/the-buccaneer-san-francisco" target="_blank">The Buccaneer (Nautical Dive)</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SUNDAY -->
+            <div class="day-column">
+                <div class="day-header">
+                    <h2>Sunday</h2>
+                    <p>Dolores Park & Departure</p>
+                </div>
+                <div class="timeline">
+                    <div class="timeslot">
+                        <div class="timeslot-header"><span class="icon">☀️</span><h3>Morning (10AM - 2PM)</h3></div>
+                        <div class="option-card">
+                            <h4>The Dolores Park Experience</h4>
+                            <p>The main event! Grab picnic supplies from Bi-Rite or Tartine, find a spot on the hill, and enjoy the best people-watching in the city.</p>
+                        </div>
+                        <div class="option-card">
+                            <h4>Hike to Twin Peaks</h4>
+                            <p>For an active start, hike to the top for an incredible 360° view of the entire city before heading to Dolores.</p>
+                            <p>Cost: Free</p>
+                        </div>
+                    </div>
+                    <div class="timeslot">
+                        <div class="timeslot-header"><span class="icon">🎨</span><h3>Afternoon (2PM - 5PM)</h3></div>
+                        <div class="option-card">
+                            <h4>Mission Mural Tour</h4>
+                            <p>After the park, wander through Clarion Alley and Balmy Alley to see the world-famous, powerful street art.</p>
+                            <a href="https://www.clarionalleymuralproject.org/" target="_blank">Clarion Alley Project</a>
+                        </div>
+                        <div class="option-card">
+                            <h4>Fisherman's Wharf Detour</h4>
+                            <p>Head north to be a total tourist. See the sea lions at Pier 39 and grab a sourdough bread bowl.</p>
+                             <a href="https://www.pier39.com/sea-lion-center/" target="_blank">Sea Lion Center</a>
+                        </div>
+                         <div class="option-card">
+                            <h4>A Trip for the Senses</h4>
+                            <p>For a truly unique experience, visit Audium, a "theater of sound" performed in complete darkness.</p>
+                             <a href="https://www.audium.org/" target="_blank">Book Audium Tickets</a>
+                        </div>
+                    </div>
+                     <div class="timeslot">
+                        <div class="timeslot-header"><span class="icon">🍦</span><h3>Late Afternoon (5PM)</h3></div>
+                        <div class="option-card">
+                            <h4>Farewell Ice Cream</h4>
+                            <p>The perfect end to the weekend. Grab a scoop from one of SF's legendary ice cream shops near the Mission.</p>
+                            <a href="https://biritecreamery.com/" target="_blank">Bi-Rite Creamery</a> | <a href="https://saltandstraw.com/" target="_blank">Salt & Straw</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <h3>Find More Events & Concerts!</h3>
+            <p>Use these sites to find cool stuff happening the specific weekend we're there.</p>
+            <p>
+                <a href="https://sf.funcheap.com/" target="_blank">SF Funcheap</a>
+                <a href="https://dothebay.com/" target="_blank">DoTheBay</a>
+                <a href="https://www.timeout.com/sanfrancisco" target="_blank">Time Out SF</a>
+            </p>
+        </div>
+    </footer>
+
+</body>
+</html>```
